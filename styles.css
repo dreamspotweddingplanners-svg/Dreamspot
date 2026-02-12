@@ -271,6 +271,25 @@ p {
     animation: glow 2s ease-in-out infinite alternate;
 }
 
+/* Tablet View */
+@media (max-width: 768px) {
+    .special-text h3 {
+        font-size: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+    .special-text h3 {
+        font-size: 1.2rem;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        border-width: 1px;
+    }
+}
+
 @keyframes glow {
     from {
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
