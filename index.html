@@ -352,5 +352,54 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Smart Instagram Link Handler
+        function handleInstagramClick(event) {
+            event.preventDefault();
+            
+            const username = 'dreamspot_wedding_planners';
+            const appUrl = `instagram://user?username=${username}`;
+            const webUrl = `https://www.instagram.com/${username}`;
+            
+            // Try to open the app first
+            const startTime = Date.now();
+            const timeout = 2500; // 2.5 seconds timeout
+            
+            // Create a hidden iframe to try the app URL
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appUrl;
+            document.body.appendChild(iframe);
+            
+            // Set timeout to check if app opened
+            setTimeout(() => {
+                // If we're still here, app didn't open, so open in browser
+                window.open(webUrl, '_blank');
+                document.body.removeChild(iframe);
+            }, timeout);
+            
+            // Listen for page visibility change (app opened successfully)
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    // App opened, clean up
+                    setTimeout(() => {
+                        if (iframe.parentNode) {
+                            document.body.removeChild(iframe);
+                        }
+                    }, 1000);
+                }
+            });
+        }
+        
+        // Apply to all Instagram links
+        document.addEventListener('DOMContentLoaded', function() {
+            const instagramLinks = document.querySelectorAll('a[href*="instagram.com"]');
+            instagramLinks.forEach(link => {
+                if (link.href.includes('dreamspot_wedding_planners')) {
+                    link.addEventListener('click', handleInstagramClick);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
